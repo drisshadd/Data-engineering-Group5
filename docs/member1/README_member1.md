@@ -96,3 +96,10 @@ Never commit `.env`, `keys/`, `generator/out/`.
 
 `tools/reference_gold/` = small offline implementation used only to produce the expected gold sample for
 the dashboard; Member 2's dbt models are the real silver/gold.
+
+## Live-run notes (2 Nov 2026)
+- PostgreSQL: port 5432 was taken on the Mac, so the source DB runs as its own container on 5433:
+  `docker run -d --name skyhop-pg -e POSTGRES_USER=source -e POSTGRES_PASSWORD=source_pw -e POSTGRES_DB=project_source -p 5433:5432 postgres:16`
+- SNOWFLAKE_ACCOUNT: use the value of `SELECT CURRENT_ORGANIZATION_NAME() || '-' || CURRENT_ACCOUNT_NAME();`
+- Register the key as ACCOUNTADMIN (SYSADMIN cannot ALTER USER); check RSA_PUBLIC_KEY_FP with DESC USER.
+- Run evidence queries on warehouse SKYHOP_WH (not another lab warehouse) so project costs stay separate.
