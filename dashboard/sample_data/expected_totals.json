@@ -1,0 +1,20 @@
+{
+  "bronze_flights": 976,
+  "bronze_bookings": 9496,
+  "silver_airports": 19,
+  "silver_passengers": 3150,
+  "silver_flights": 866,
+  "quarantine_flights": 79,
+  "duplicates_removed_flights": 31,
+  "silver_bookings": 8123,
+  "quarantine_bookings": 977,
+  "duplicates_removed_bookings": 396,
+  "gold_daily_otp_rows": 436,
+  "gold_on_time_flights": 61,
+  "gold_flights_with_delay": 853,
+  "gold_bookings_sold": 8034,
+  "gold_bookings_refunded": 89,
+  "gold_net_revenue_gbp": "1788710.02",
+  "gold_refunded_gbp": "20819.09",
+  "gold_uk261_exposure_gbp": "419540"
+}

@@ -1,0 +1,10 @@
+{
+  "flight_ops/batch_001/airports.csv.gz": 18,
+  "reservations/batch_001/bookings.csv.gz": 7224,
+  "flight_ops/batch_001/flights.csv.gz": 928,
+  "reservations/batch_001/passengers.csv.gz": 3096,
+  "flight_ops/batch_002/airports.csv.gz": 2,
+  "reservations/batch_002/bookings.csv.gz": 2272,
+  "flight_ops/batch_002/flights.csv.gz": 48,
+  "reservations/batch_002/passengers.csv.gz": 161
+}

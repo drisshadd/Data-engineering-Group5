@@ -1,0 +1,9 @@
+{
+  "bookings: unknown or quarantined flight_id": 902,
+  "bookings: fare not readable": 59,
+  "flights: origin equals destination": 49,
+  "bookings: fare in EUR on a GBP feed": 25,
+  "flights: unknown destination": 14,
+  "flights: scheduled_departure not readable": 10,
+  "flights: unknown origin": 7
+}

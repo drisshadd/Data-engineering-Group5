@@ -218,3 +218,21 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+# append to the repo .gitignore
+.env
+keys/
+*.p8
+*.pub
+generator/out/
+__pycache__/
+.pytest_cache/
+.venv/
+# append to the repo .gitignore
+.env
+keys/
+*.p8
+*.pub
+generator/out/
+__pycache__/
+.pytest_cache/
+.venv/
