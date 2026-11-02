@@ -236,3 +236,12 @@ generator/out/
 __pycache__/
 .pytest_cache/
 .venv/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+tfplan
+crash.log
