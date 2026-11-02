@@ -1,0 +1,46 @@
+# Local source databases with Docker (Postgres, MySQL, MongoDB) + a web admin UI.
+# NOT TESTED (Docker was not available on the author's machine). Pinned versions.
+#   docker compose -f docker-compose-databases.yml up -d
+#   Postgres: localhost:5432  user source / password source_pw   db project_source
+#   MySQL:    localhost:3306  user source / password source_pw   db project_source
+#   MongoDB:  localhost:27017 user source / password source_pw
+#   Adminer (web UI for Postgres and MySQL): http://localhost:8081
+# These passwords are for a local throw-away lab only. Never reuse them anywhere.
+services:
+  postgres:
+    image: postgres:16.4
+    environment:
+      POSTGRES_USER: source
+      POSTGRES_PASSWORD: source_pw
+      POSTGRES_DB: project_source
+    ports: ["5432:5432"]
+    volumes: ["pg_data:/var/lib/postgresql/data"]
+    # logical replication on: lets you try CDC (Debezium, Openflow) later
+    command: ["postgres", "-c", "wal_level=logical"]
+
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pw
+      MYSQL_USER: source
+      MYSQL_PASSWORD: source_pw
+      MYSQL_DATABASE: project_source
+    ports: ["3306:3306"]
+    volumes: ["mysql_data:/var/lib/mysql"]
+
+  mongo:
+    image: mongo:7.0
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: source
+      MONGO_INITDB_ROOT_PASSWORD: source_pw
+    ports: ["27017:27017"]
+    volumes: ["mongo_data:/data/db"]
+
+  adminer:
+    image: adminer:4.8.1
+    ports: ["8081:8080"]
+
+volumes:
+  pg_data:
+  mysql_data:
+  mongo_data:

@@ -1,0 +1,9 @@
+# append to the repo .gitignore
+.env
+keys/
+*.p8
+*.pub
+generator/out/
+__pycache__/
+.pytest_cache/
+.venv/

@@ -1,0 +1,13 @@
+city,country,iata,latitude,longitude,holiday_calendar
+London,GB,LHR,51.4700,-0.4543,england-and-wales
+Manchester,GB,MAN,53.3537,-2.2750,england-and-wales
+Birmingham,GB,BHX,52.4539,-1.7480,england-and-wales
+Leeds,GB,LBA,53.8659,-1.6606,england-and-wales
+Glasgow,GB,GLA,55.8719,-4.4331,scotland
+Bristol,GB,BRS,51.3827,-2.7191,england-and-wales
+Liverpool,GB,LPL,53.3336,-2.8497,england-and-wales
+Edinburgh,GB,EDI,55.9500,-3.3725,scotland
+Cardiff,GB,CWL,51.3967,-3.3433,england-and-wales
+Belfast,GB,BFS,54.6575,-6.2158,northern-ireland
+Paris,FR,CDG,49.0097,2.5479,FR
+Lyon,FR,LYS,45.7256,5.0811,FR
