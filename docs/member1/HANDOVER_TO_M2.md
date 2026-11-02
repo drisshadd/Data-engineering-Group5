@@ -4,10 +4,10 @@
 
 | Check | Expected | Done on Snowflake |
 |---|---|---|
-| `python -m skyhop_ingest verify` | 8 files, all OK, 13,749 rows | [ ] date: ____ |
-| `API_RAW` documents | open_meteo 12 · ourairports 12 · frankfurter 1 · govuk 1 · nager 1 | [ ] |
-| Replay of batch 1 | PUT SKIPPED, COPY 0 file, counts unchanged | [ ] |
-| Screenshots in `docs/evidence/member1/` | LIST @LANDING · counts query · COPY_HISTORY · API_RAW | [ ] |
+| `python -m skyhop_ingest verify` | 8 files, all OK, 13,749 rows | [x] 2 Nov 2026 |
+| `API_RAW` documents | open_meteo 12 · ourairports 12 · frankfurter 1 · govuk 1 · nager 1 | [x] |
+| Replay of batch 1 | PUT SKIPPED, COPY 0 file, counts unchanged | [x] |
+| Screenshots in `docs/evidence/member1/` | LIST @LANDING · counts query · COPY_HISTORY · API_RAW | [x] |
 
 ## 1. What you get (database `SKYHOP`, schema `BRONZE`)
 Every column is `VARCHAR` (raw text exactly as in the source), plus `_SOURCE_FILE` (e.g.
