@@ -1,10 +1,27 @@
--- One row per London business date, matching the validated Snowflake dashboard contract.
-select business_date,
- count(*) as total_flights,
- sum(is_on_time) as on_time_flights,
- round(100.0*sum(is_on_time)/nullif(count(*),0),2) as otp_pct,
- round(avg(delay_min),2) as avg_delay_min,
- sum(booking_count) as total_bookings,
- sum(revenue_gbp)::number(18,2) as total_revenue_gbp
-from {{ ref('flight_performance') }}
-group by business_date
+-- Dashboard-compatible grain: London business date x origin airport.
+SELECT
+    f.business_date,
+    f.origin_airport,
+    MAX(a.city) AS origin_city,
+    COUNT(*) AS flights_operated,
+    COUNT(f.delay_min) AS flights_with_delay,
+    COALESCE(COUNT_IF(f.delay_min <= 15), 0) AS on_time_flights,
+    ROUND(
+        100.0 * COUNT_IF(f.delay_min <= 15)
+        / NULLIF(COUNT(f.delay_min), 0), 2
+    ) AS otp15_pct,
+    ROUND(AVG(f.delay_min), 2) AS avg_delay_min,
+    COALESCE(COUNT_IF(f.delay_min >= 180), 0) AS flights_delayed_3h_plus,
+
+    -- Additional columns retained for reconciliation.
+    COUNT(*) AS total_flights,
+    ROUND(
+        100.0 * COUNT_IF(f.delay_min <= 15)
+        / NULLIF(COUNT(f.delay_min), 0), 2
+    ) AS otp_pct,
+    SUM(f.booking_count) AS total_bookings,
+    SUM(f.revenue_gbp)::NUMBER(18,2) AS total_revenue_gbp
+FROM {{ ref('flight_performance') }} f
+LEFT JOIN {{ ref('silver_airports') }} a
+    ON f.origin_airport = a.airport_code
+GROUP BY f.business_date, f.origin_airport
