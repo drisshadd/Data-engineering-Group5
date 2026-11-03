@@ -1,0 +1,18 @@
+version: 2
+sources:
+  - name: bronze
+    database: SKYHOP
+    schema: BRONZE
+    tables:
+      - name: airports
+        identifier: AIRPORTS
+      - name: passengers
+        identifier: PASSENGERS
+      - name: flights
+        identifier: FLIGHTS
+      - name: bookings
+        identifier: BOOKINGS
+      - name: api_raw
+        identifier: API_RAW
+      - name: city_reference
+        identifier: CITY_REFERENCE

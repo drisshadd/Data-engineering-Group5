@@ -1,0 +1,21 @@
+name: skyhop
+version: '1.0.0'
+config-version: 2
+profile: skyhop
+model-paths: [models]
+macro-paths: [macros]
+test-paths: [tests]
+models:
+  skyhop:
+    staging:
+      +schema: SILVER
+      +materialized: view
+    silver:
+      +schema: SILVER
+      +materialized: table
+    quarantine:
+      +schema: QUARANTINE
+      +materialized: table
+    gold:
+      +schema: GOLD
+      +materialized: table
