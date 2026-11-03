@@ -56,7 +56,7 @@ models:
     - unique
     - not_null
 - name: daily_otp
-  description: One row per London business date; matches existing dashboard columns.
+  description: One row per London business date and origin airport; exposes all dashboard OTP columns.
   columns:
   - name: business_date
     data_tests:
