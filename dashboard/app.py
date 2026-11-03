@@ -58,8 +58,8 @@ def load(source: str):
     num_otp = ["flights_operated", "flights_with_delay", "on_time_flights", "otp15_pct", "avg_delay_min", "flights_delayed_3h_plus"]
     num_fp = ["seats", "delay_min", "bookings_sold", "bookings_refunded", "net_revenue_gbp", "refunded_gbp",
               "load_factor_pct", "uk261_exposure_gbp"]
-    otp[num_otp] = otp[num_otp].apply(pd.to_numeric, errors="coerce")
-    fp[num_fp] = fp[num_fp].apply(pd.to_numeric, errors="coerce")
+    otp[num_otp] = otp[num_otp].apply(pd.to_numeric, errors="coerce").astype("float64")
+    fp[num_fp] = fp[num_fp].apply(pd.to_numeric, errors="coerce").astype("float64")
     return otp, fp, label
 
 
