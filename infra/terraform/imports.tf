@@ -22,23 +22,23 @@ import {
   id = "\"SKYHOP_WH\""
 }
 
-# import {
-#   to = snowflake_schema.layer["SILVER"]
-#   id = "\"SKYHOP\".\"SILVER\""
-# }
-# import {
-#   to = snowflake_schema.layer["GOLD"]
-#   id = "\"SKYHOP\".\"GOLD\""
-# }
-# import {
-#   to = snowflake_schema.layer["QUARANTINE"]
-#   id = "\"SKYHOP\".\"QUARANTINE\""
-# }
+import {
+  to = snowflake_schema.layer["SILVER"]
+  id = "\"SKYHOP\".\"SILVER\""
+}
+import {
+  to = snowflake_schema.layer["GOLD"]
+  id = "\"SKYHOP\".\"GOLD\""
+}
+import {
+  to = snowflake_schema.layer["QUARANTINE"]
+  id = "\"SKYHOP\".\"QUARANTINE\""
+}
 # import {
 #   to = snowflake_warehouse.transform
 #   id = "\"SKYHOP_TRANSFORM_WH\""
 # }
-# import {
-#   to = snowflake_account_role.analyst
-#   id = "\"SKYHOP_ANALYST\""
-# }
+import {
+  to = snowflake_account_role.analyst
+  id = "\"SKYHOP_ANALYST\""
+}
