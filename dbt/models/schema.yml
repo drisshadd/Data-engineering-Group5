@@ -1,0 +1,101 @@
+version: 2
+models:
+- name: silver_airports
+  description: One airport per normalized airport_code; latest batch wins.
+  columns:
+  - name: airport_code
+    data_tests:
+    - unique
+    - not_null
+- name: silver_passengers
+  description: Restricted Silver passenger PII. Do not grant analyst access.
+  columns:
+  - name: passenger_id
+    data_tests:
+    - unique
+    - not_null
+- name: silver_flights
+  description: Valid, deduplicated flights; invalid delays/seats become NULL.
+  columns:
+  - name: flight_id
+    data_tests:
+    - unique
+    - not_null
+  - name: origin_airport
+    data_tests:
+    - not_null
+    - relationships:
+        to: ref('silver_airports')
+        field: airport_code
+  - name: destination_airport
+    data_tests:
+    - not_null
+    - relationships:
+        to: ref('silver_airports')
+        field: airport_code
+- name: silver_bookings
+  description: Deduplicated bookings; positive GBP fare magnitude, is_refund flag,
+    refund rows excluded from net sales.
+  columns:
+  - name: booking_id
+    data_tests:
+    - unique
+    - not_null
+  - name: flight_id
+    data_tests:
+    - not_null
+    - relationships:
+        to: ref('silver_flights')
+        field: flight_id
+- name: flight_performance
+  description: One row per flight; retains legacy dashboard and dbt revenue/booking
+    aliases; refunds excluded from revenue.
+  columns:
+  - name: flight_id
+    data_tests:
+    - unique
+    - not_null
+- name: daily_otp
+  description: One row per London business date; matches existing dashboard columns.
+  columns:
+  - name: business_date
+    data_tests:
+    - not_null
+- name: route_performance
+  description: Route metrics; booked load-factor proxy, not measured occupancy or
+    profit.
+- name: passenger_disruptions
+  description: Daily exposure of bookings to delays, not confirmed passenger counts
+    or compensation.
+- name: airport_peak_hours
+  description: Scheduled departure activity by airport, day and UK hour, not measured
+    congestion.
+- name: loyalty_revenue
+  description: Gross sales by loyalty tier, excluding refunds.
+- name: route_weather_readiness
+  description: Weather API ingestion status; not a weather-delay correlation model.
+- name: weather_impact
+  description: 'Daily airport punctuality with city-level Open-Meteo historical precipitation,
+    maximum wind and temperature. Descriptive association, not causal attribution.
+    Missing API coverage is retained as NULL and weather_available=false.
+
+    '
+  columns:
+  - name: business_date
+    data_tests:
+    - not_null
+  - name: origin_airport
+    data_tests:
+    - not_null
+- name: bookings
+  description: Rejected bookings with original values and reason codes.
+  columns:
+  - name: quarantine_reason
+    data_tests:
+    - not_null
+- name: flights
+  description: Rejected flights with original values and reason codes.
+  columns:
+  - name: quarantine_reason
+    data_tests:
+    - not_null

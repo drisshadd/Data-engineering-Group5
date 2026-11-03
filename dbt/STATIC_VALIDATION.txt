@@ -1,0 +1,6 @@
+Static audit (2026-11-03)
+25 SQL files, including 15 model SQL files.
+3 YAML configuration files parsed successfully.
+Jinja syntax parsed successfully for all SQL files.
+All dbt ref() names resolve to a model SQL file.
+No Snowflake SQL compilation or runtime execution performed.

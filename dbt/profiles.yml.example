@@ -1,0 +1,13 @@
+skyhop:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER', 'MEMBER2_DBT') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: SKYHOP_TRANSFORM
+      warehouse: SKYHOP_TRANSFORM_WH
+      database: SKYHOP
+      schema: SILVER
+      threads: 4
