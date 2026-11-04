@@ -12,9 +12,9 @@ with weather_raw as (
 ), weather_days as (
     select city_key,
            try_to_date(d.value::varchar) as weather_date,
-           try_to_double(rain[d.index]) as precipitation_mm,
-           try_to_double(wind[d.index]) as max_wind_kmh,
-           try_to_double(temperature[d.index]) as max_temperature_c,
+           try_to_double(to_varchar(rain[d.index])) as precipitation_mm,
+           try_to_double(to_varchar(wind[d.index])) as max_wind_kmh,
+           try_to_double(to_varchar(temperature[d.index])) as max_temperature_c,
            _loaded_at
     from weather_raw, lateral flatten(input => days) d
 ), latest_weather as (

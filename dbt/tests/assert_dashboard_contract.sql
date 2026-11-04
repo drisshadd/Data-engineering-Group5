@@ -32,4 +32,4 @@ LEFT JOIN SKYHOP.INFORMATION_SCHEMA.COLUMNS c
  AND c.table_schema = 'GOLD'
  AND c.table_name = r.table_name
  AND c.column_name = r.column_name
-WHERE c.column_name IS NULL;
+WHERE c.column_name IS NULL

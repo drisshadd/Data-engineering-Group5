@@ -1,0 +1,13 @@
+skyhop:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: dqyyeis-ew25504
+      user: DHADDADI
+      password: m8jCF6s5GNXgmyL
+      role: SKYHOP_TRANSFORM
+      warehouse: SKYHOP_TRANSFORM_WH
+      database: SKYHOP
+      schema: SILVER
+      threads: 4
