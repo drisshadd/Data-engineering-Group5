@@ -1,0 +1,18 @@
+# Build context = repo root (both images). Never send secrets, data or heavy folders to an image.
+.git/
+**/.env
+**/*.p8
+**/*.pem
+keys/
+generator/out/
+**/target/
+**/logs/
+**/dbt_packages/
+**/.terraform/
+**/*.tfstate*
+**/terraform.tfvars
+**/venv/
+**/.venv/
+**/__pycache__/
+docs/evidence/
+slides/

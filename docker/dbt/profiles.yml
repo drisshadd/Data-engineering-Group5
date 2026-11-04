@@ -1,0 +1,27 @@
+# dbt connection used INSIDE the skyhop-dbt container. No secret here: values come from environment variables
+# set by the Airflow DAG (from orchestration/airflow/.env); the private key is a file mounted read-only at run time.
+#   DBT_TARGET=keypair  (default) -> service user DBT_SVC + key pair: the right way for a robot
+#   DBT_TARGET=password            -> fallback: the human login you used for `dbt build` on your laptop
+skyhop:
+  target: "{{ env_var('DBT_TARGET', 'keypair') }}"
+  outputs:
+    keypair:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER', 'DBT_SVC') }}"
+      private_key_path: "{{ env_var('SNOWFLAKE_PRIVATE_KEY_FILE', '/secrets/rsa_key.p8') }}"
+      role: SKYHOP_TRANSFORM
+      warehouse: SKYHOP_TRANSFORM_WH
+      database: SKYHOP
+      schema: SILVER
+      threads: 4
+    password:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER', 'DBT_SVC') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD', '') }}"
+      role: SKYHOP_TRANSFORM
+      warehouse: SKYHOP_TRANSFORM_WH
+      database: SKYHOP
+      schema: SILVER
+      threads: 4
