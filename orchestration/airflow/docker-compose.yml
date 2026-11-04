@@ -1,0 +1,53 @@
+# SkyHop · the whole orchestration platform on your laptop, with one command:
+#   docker compose up -d --build          (from orchestration/airflow/)
+#   Airflow UI  http://localhost:8080     (laptop setup: no login, every user is admin)
+#   Postgres    localhost:5433            (user/db from .env) = SkyHop's "on-prem" reservation system
+#   Stop:       docker compose down       (add -v to also wipe the Postgres data)
+#
+# Every Airflow task starts its OWN container (skyhop-ingest / skyhop-dbt) on the network skyhop-net,
+# so the ingestion job reaches Postgres by its name "skyhop-postgres", exactly like a real network.
+services:
+  postgres:
+    image: postgres:16.4
+    container_name: skyhop-postgres
+    environment:
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_DB: ${PGDATABASE}
+    ports: ["5434:5432"]                # 5433 on the Mac (5432 is often taken), 5432 inside the network
+    volumes: ["skyhop_pg_data:/var/lib/postgresql/data"]
+    command: ["postgres", "-c", "wal_level=logical"]   # ready for CDC (Debezium) if asked in the defence
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PGUSER} -d ${PGDATABASE}"]
+      interval: 5s
+      retries: 10
+    networks: [skyhop]
+
+  airflow:
+    build: .
+    image: skyhop-airflow:1.0.0
+    container_name: skyhop-airflow
+    command: standalone
+    ports: ["8080:8080"]
+    env_file: .env                      # account, keys, data folder, Postgres, webhook (NOT committed)
+    environment:
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__DEFAULT_TIMEZONE: "Europe/London"
+      AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_ALL_ADMINS: "true"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - /var/run/docker.sock:/var/run/docker.sock   # lets Airflow start the task containers on your Docker
+    # Teaching shortcut (course pack): root to use the Docker socket on a laptop.
+    # Production: KubernetesPodOperator, nothing runs as root.
+    user: "0:0"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks: [skyhop]
+
+networks:
+  skyhop:
+    name: skyhop-net                    # fixed name: the DAG attaches the task containers to it
+
+volumes:
+  skyhop_pg_data:

@@ -1,0 +1,3 @@
+# Airflow image with the Docker provider (each task runs in its own container). Versions pinned, from the course pack.
+FROM apache/airflow:3.3.2
+RUN pip install --no-cache-dir "apache-airflow==3.3.2" "apache-airflow-providers-docker==4.5.9"

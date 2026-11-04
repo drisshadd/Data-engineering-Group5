@@ -1,0 +1,4 @@
+.env
+logs/
+*.p8
+__pycache__/
