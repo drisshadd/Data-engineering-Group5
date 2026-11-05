@@ -245,3 +245,10 @@ __pycache__/
 !*.tfvars.example
 tfplan
 crash.log
+dbt/.user.yml
+dbt/target/
+terraform.tfstate*
+*.p8
+*.tfplan
+.env
+keys/
